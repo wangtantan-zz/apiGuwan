@@ -1,0 +1,484 @@
+api 文档
+======================================================
+
+```
+HOST
+  
+  develope: dev.api.gw.stockalert.cn
+```
+
+---
+除了标名不需认证，其他的接口需要在 header中添加 
+UserAgent:  token="*****" 
+服务器在切面上对所有需认证的接口进行身份认证
+Authorization: "Bearer " + accessToken
+X-SG-Agent: clientType/clientVersion/deviceID
+
+clientType: andriod, ios, wap
+clientVersion: 版本号
+deviceID: 硬件可标识ID
+return value:
+200     认证成功
+404     用户不存在
+500     未知错误
+501      用户未上线
+
+errorCode List:
+200     success
+
+
+---
+接口报错返回的数据格式
+```
+Return Value:
+{
+  message : char,   //错误信息
+  status  : number, //HTTP状态码 
+  errtext : char,   //错误信息描述
+  more    : obj,    //更多错误信息
+}
+
+message有以下类型:{
+  paramsError:       //参数错误
+  paramsMissing:     //缺少参数
+  paramsLengthError: //参数长度错误
+  notFound:          //没找到
+  unauthorized:      //token无效
+  illegalActionType: //非法操作类型
+  shouldNotBeHere:   //不该到这里来
+  systemError:       //系统错误
+  undefinedUnionid:  //微信用户没有unionid
+
+}
+```
+
+
+API文档：publish
+===
+```
+PATH: /publishes/byId/:_id  //根据_id获取热点：
+METHOD: GET
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [   //仅返回一个对象，长度为1的数组
+    {
+      _id: ObjectID,
+      title: String,
+      //10：小编视频、11：小编无图文字、12：小编三图文章
+      //20：个人视频、21：个人图片文字、22：个人文章、23：站内转发
+      type: Number, 
+      content: String,
+      mediaUrl: [char], //图片或视频url数组
+      editor: {
+        unionid: String,
+        nickName: String,
+        profileImg: String,
+        weixinProfile: {},
+        recentClient: String,
+        follows: [ObjectID],
+      },
+      editorImg: String,
+      publishedAt: Date,
+      favorNum：number, //点赞数，默认初始值0
+      commentNum：number, //评论数，默认初始值0
+      forwardNum: number, //转发数，默认初始值0
+      collectNum: number, //转发数，默认初始值0
+      timeString: char, //"2016-09-07 04:10:44"
+      comment: char, //仅23类型的转发才有， 个人评论
+      origin: { //23类型的转发才有，是一个publish的对象,展示部分重要字段
+        _id: ObjectID,
+        title: String,     
+        mediaUrl: [char],
+        content: String, 
+        ......
+      }，
+    }，
+  ]
+}
+```
+---
+```
+//keyward：标题关键字搜索，无需其他参数
+//type：参数必填字段(discover发现或hotspot热点)
+  //若存在after，仅根据after参数返回参数节点后的20条：2016-08-06T07:47:40.847Z
+  //若无after返回before前的20条，若before也不存在，返回当前时间之前（最新）的20条
+PATH: /publishes?after=&type=hotspot
+METHOD: GET
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+      _id: ObjectID,
+      title: String,
+      //10：小编视频、11：小编无图文字、12：小编三图文章
+      //20：个人视频、21：个人图片文字、22：个人文章、23：站内转发
+      type: Number, 
+      content: String,
+      mediaUrl: [char], //图片或视频url数组
+      editor: {
+        unionid: String,
+        nickName: String,
+        profileImg: String,
+        weixinProfile: {},
+        recentClient: String,
+        follows: [ObjectID],
+      },
+      editorImg: String,
+      publishedAt: Date,
+      favorNum：number, //点赞数，默认初始值0
+      commentNum：number, //评论数，默认初始值0
+      forwardNum: number, //转发数，默认初始值0
+      collectNum: number, //转发数，默认初始值0
+      timeString: char, //"2016-09-07 04:10:44"
+      comment: char, //仅23类型的转发才有， 个人评论
+      origin: { //23类型的转发才有，是一个publish的对象,展示部分重要字段
+        _id: ObjectID,
+        title: String,     
+        mediaUrl: [char],
+        content: String, 
+        ......
+      }
+    },
+    .........
+  ],
+}
+```
+---
+```
+PATH: /publishes //发表热点或发现
+METHOD: POST
+HEADER：
+{
+  Authorization:'Bearer ' + token
+}
+BODY：
+{
+   title: String,
+      //10：小编视频、11：小编无图文字、12：小编三图文章
+      //20：个人视频、21：个人图片文字、22：个人文章
+   type: Number, 
+   content: String,
+   mediaUrl: [char], //图片或视频url数组
+   editor: String, //发表人的_id，测试：57d3cec6b21dc3f3f7245ffe
+}
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+      _id: ObjectID,
+      title: String,
+      //10：小编视频、11：小编无图文字、12：小编三图文章
+      //20：个人视频、21：个人图片文字、22：个人文章
+      type: Number, 
+      content: String,
+      mediaUrl: [char], //图片或视频url数组
+      editor: String,  //发布人的_id字符串
+      publishedAt: Date,
+      favorNum：number, //点赞数，默认初始值0
+      commentNum：number, //评论数，默认初始值0
+      forwardNum: number, //转发数，默认初始值0
+      collectNum: number, //转发数，默认初始值0
+      timeString: char, //"2016-09-07 04:10:44"
+    }
+  ]
+}
+```
+---
+```
+//根据id删除发布（删除热点后，对应评论全部删除，待补）
+PATH: /publishes/byId/idString 
+METHOD: DELETE
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    ？？？？
+  ],
+}
+```
+---
+```
+PATH: /publishes/forward  //根据发布id更新数据addType有favorNum、commentNum、forwardNum是必填字段
+METHOD: POST
+
+HEADER：
+{
+  Authorization:'Bearer ' + token
+}
+BODY：
+{
+   comment: String,  //个人的评论内容
+   forwardId: String,  //转发的publish的_id参数
+   editor: String, //发表人的_id，测试：57d2136eb21dc3f3f7245ffd
+   editorImg: String, //头像？？？暂时未必传，但不需要，待修改
+}
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+      _id: ObjectID,
+      title: String,
+      //10：小编视频、11：小编无图文字、12：小编三图文章
+      //20：个人视频、21：个人图片文字、22：个人文章、23：站内转发
+      type: Number, 
+      content: String,
+      mediaUrl: [char], //图片或视频url数组
+      editor: char,
+      editorImg: char,
+      publishedAt: Date,
+      favorNum：number, //点赞数，默认初始值0
+      commentNum：number, //评论数，默认初始值0
+      forwardNum: number, //转发数，默认初始值0
+      collectNum: number, //转发数，默认初始值0
+      timeString: char, //"2016-09-07 04:10:44"
+      comment: char, //仅23类型的转发才有， 个人评论
+      origin: { //23类型的转发才有，是一个publish的对象,展示部分重要字段
+        _id: ObjectID,
+        title: String,     
+        mediaUrl: [char],
+        content: String, 
+        ......
+      }，
+    }
+  ],
+}
+```
+---
+```
+PATH: /publishes/private?_id=userId&page= //根据用户id返回分布的列表
+PATH: /publishes/collect?_id=userId&page= //根据用户id返回收藏的列表
+PATH: /publishes/favor?_id=userId&page= //根据用户id返回赞过的列表,10条分页，默认page=1
+METHOD: GET
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+      _id: ObjectID,
+      title: String,
+      //10：小编视频、11：小编无图文字、12：小编三图文章
+      //20：个人视频、21：个人图片文字、22：个人文章、23：站内转发
+      type: Number, 
+      content: String,
+      mediaUrl: [char], //图片或视频url数组
+      editor: {
+        unionid: String,
+        nickName: String,
+        profileImg: String,
+        weixinProfile: {},
+        recentClient: String,
+        follows: [ObjectID],
+      },
+      editorImg: String,
+      publishedAt: Date,
+      favorNum：number, //点赞数，默认初始值0
+      commentNum：number, //评论数，默认初始值0
+      forwardNum: number, //转发数，默认初始值0
+      collectNum: number, //转发数，默认初始值0
+      timeString: char, //"2016-09-07 04:10:44"
+      comment: char, //仅23类型的转发才有， 个人评论
+      origin: { //23类型的转发才有，是一个publish的对象,展示部分重要字段
+        _id: ObjectID,
+        title: String,     
+        mediaUrl: [char],
+        content: String, 
+        ......
+      }
+    },
+    .........
+  ],
+}
+```
+
+
+API文档：comment
+===
+---
+```
+PATH: /comments?_id=publishId&page= //根据热点id获取评论,10条分页，默认page=1
+METHOD: GET
+
+Return Value:
+{
+  _id: ObjectID,
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+      _id: char, //评论id
+      authorId：char, //评论人id
+      basedOn: char, //'publishId'的回复
+      reply: char, //回复，无回复只评论为null
+      content: char, //评论内容
+      favorNum: number, //默认初始值
+      publishedAt: Date, //"2016-09-06T07:47:40.847Z"
+      timeString: char//"2016-09-07 04:10:44"
+    },
+    ...
+  ],
+}
+```
+---
+```
+PATH: /comments? //根据热点id发表评论（发表评论后，发布评论数+1，发布的评论人id新增待补）
+METHOD: POST
+
+Header:
+{
+  Authorization:'Bearer ' + token
+}
+BODY：
+{
+   authorId：char, //评论人id
+   basedOn: char, //'publishId'的回复
+   reply: char, //回复@，无回复为null
+   content: char, //评论内容
+}
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+      _id: char, //评论id
+      authorId：char, //评论人id
+      basedOn: char, //'publishId'的回复
+      reply: char, //回复，无回复只评论为null
+      content: char, //评论内容
+      favorNum: number, //点赞数，默认初始值0
+      publishedAt: Date,
+      timeString: char//"2016-09-07 04:10:44"
+    }
+  ]
+}
+```
+---
+```
+PATH: /comments/byId/:_id  //根据评论id删除该评论
+METHOD: DELETE
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload:
+  [
+    {
+       ????
+    }
+  ],
+}
+```
+---
+```
+PATH: /comments/favorComment?_id=commentId  //根据评论id增加点赞数
+METHOD: GET
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload:
+  [
+    {
+       ????
+    }
+  ],
+}
+```
+
+API文档：userAction
+===
+
+```
+PATH: /userAction/byId/:_id //获取userAction，****【前端用不到】
+METHOD: GET
+
+Return Value:
+{
+  _id: ObjectID,
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+       _id: ObjectId,
+       userId: char,
+       actionType: char,  //favor/collect(publish) ?follow/shield(user待补充)
+       objectUserId: char,
+       objectPublishId: char,
+       publishedAt: Date,
+       publishedAt: Date, //"2016-09-06T07:47:40.847Z"
+       timeString: char//"2016-09-07 04:10:44"
+    },
+    ...
+  ],
+}
+```
+---
+```
+PATH: /userActions  //点赞or收藏
+METHOD: POST
+
+Header:
+{
+  Authorization:'Bearer ' + token
+}
+BODY：
+{
+   userId：char, //评论人id
+   objectPublishId: char, //'publishId'的回复
+   actionType: char, //favor（点赞）或collect（收藏）
+}
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: [
+    {
+        ？？？？
+    }
+  ]
+}
+```
+---
+```
+有问题，待修改，暂时不要用
+//PATH: /userActions/byId/:id  //取消点赞or收藏
+//METHOD: DELETE
+
+//Return Value:
+//{
+//  message: char,//状态信息 "ok"表示成功
+//  payload: [
+//    {
+//        ？？？？
+//    }
+//  ]
+//}
+```
+
+API文档：authLogin
+===
+---
+```
+PATH: /auth/weixinLogin  //微信登录
+METHOD: GET
+Header:
+{
+  Authorization:'Bearer ' + token
+}
+
+Return Value:
+{
+     token : char,//token信息
+     isNewCreated: true/false //若为true，表示新创建的用户
+}
+```
+
+* [返回](/README.md)
+* [返回](#readme)
