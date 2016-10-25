@@ -4,7 +4,7 @@
 | 序号 | 接口（点击进入） | URL |
 | :----: | :---------: | :------- |
 | 1 | [默认](/index.md) | / |
-| 2 | [登陆](/auth.md) | / |
+| 2 | [登陆](/auth.md) | /auth |
 | 3 | [发布](/publish.md) | /publishes |
 | 4 | [用户](/user.md) | /users |
 | 5 | [评论](/comment.md) | /comments |
