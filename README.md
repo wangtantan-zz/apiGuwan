@@ -28,6 +28,7 @@ clientVersion: 版本号
 deviceID: 硬件可标识ID
 return value:
 200     认证成功
+400     后端提示错误
 404     用户不存在
 500     未知错误
 501      用户未上线
@@ -46,7 +47,11 @@ Return Value:
   more    : obj,      //更多错误信息
 }
 
-message有以下类型:{
+```
+------------------------------------------------------
+- [x] message类型
+```
+{
   paramsError:        //参数错误
   paramsMissing:      //缺少参数
   paramsLengthError:  //参数长度错误
