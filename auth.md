@@ -4,44 +4,42 @@
 * [返回目录](/README.md)
 
 
-- [x] 获取验证码
+- [x] 微信登陆
 ```
-PATH: /sendVerifyCode
+PATH: /auth/appWechatLogin
 METHOD: POST
+
+Header:
+{
+  Authorization:'Bearer ' + token
+}
+BODY:
+{
+  code: number,
+}
+
+Return Value:
+{
+}
+```
+------------------------------------------------------
+- [x] 短信登陆
+```
+PATH: /auth/smsLogin
+METHOD: POST
+
+Header:
+{
+  Authorization:'Bearer ' + token
+}
 BODY:
 {
   mobile: number,
+  verifyCode: number,
 }
 
 Return Value:
 {
-}
-```
-------------------------------------------------------
-- [x] app参数
-  交易隐藏， 缩略图参数
-```
-PATH: /appConfig
-METHOD: GET
-
-Return Value:
-{
-  listThumbnailStyle: char, //缩略图参数
-  hidden: num, //0关1开
-}
-```
-------------------------------------------------------
-- [x] 微信转发参数
-```
-PATH: /wxConfig?url=baidu.com
-METHOD: GET
-
-Return Value:
-{
-  timestamp: 1477365307,
-  nonceStr: "ec171720505b3f493ca6eede44f114ff",
-  url: "a",
-  sign: "dd174eca0842aae91202ed7edc388678905dcc82"
 }
 ```
 ------------------------------------------------------

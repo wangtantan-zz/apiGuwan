@@ -3,14 +3,15 @@
 
 | 序号 | 接口（点击进入） | URL |
 | :----: | :---------: | :------- |
-| 1 | 点击进去>[默认](/index.md) | / |
-| 2 | 点击进去>[发布](/publish.md) | /publishes |
-| 3 | 点击进去>[用户](/user.md) | /users |
-| 4 | 点击进去>[评论](/comment.md) | /comments |
-| 5 | 点击进去>[管理员](/admin.md) | /admin |
-| 6 | 点击进去>[大行情](/quote.md) | /quotes |
-| 7 | 点击进去>[反馈](/feedback.md) | /feedbacks |
-| 8 | 点击进去>[自选股](/userStock.md) | /userStocks |
+| 1 | [默认](/index.md) | / |
+| 2 | [登陆](/auth.md) | / |
+| 3 | [发布](/publish.md) | /publishes |
+| 4 | [用户](/user.md) | /users |
+| 5 | [评论](/comment.md) | /comments |
+| 6 | [管理员](/admin.md) | /admin |
+| 7 | [大行情](/quote.md) | /quotes |
+| 8 | [反馈](/feedback.md) | /feedbacks |
+| 9 | [自选股](/userStock.md) | /userStocks |
 
 
 ##说明
