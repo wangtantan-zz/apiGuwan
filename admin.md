@@ -6,7 +6,7 @@
 
 - [x] 获取publish列表（热点、滚动、发现）
 ```
-PATH: admin/publishes?filterKey=     //获取hs热点、sc滚动、ds发现
+PATH: admin/publishes?filterKey=&page=         //获取hs热点、sc滚动、ds发现
 PATH: admin/publishes?keyword=关键字&type=     //根据关键字获取hotspot热点、discover发现
 METHOD: GET
 
@@ -192,12 +192,61 @@ Return Value:
 }
 ```
 ------------------------------------------------------
+- [x] 根据标签获取publish列表
+```
+PATH: /admin/publishes/:tag/byTag?page=
+METHOD: GET
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  pageInfo: {
+    page: 1,
+    perPage: 20,
+    totalNum: 15
+  },
+  payload: [
+    {
+      "_id": "580b81e452540a7b2f8010d8",
+      "updatedAt": "2016-10-22T15:12:36.013Z",
+      "createdAt": "2016-10-22T15:12:36.013Z",
+      "type": 21,
+      "content": "",
+      "uid": "57ec8499a49385392fa36154",
+      "__v": 0,
+      "commentNum": 0,
+      "mediaUrls": [
+          "This is a mediaUrl",
+          "This is another mediaUrl",
+          ...
+      ],
+      "summary": "",
+      "id": "580b81e452540a7b2f8010d8",
+      "user": {
+        "_id": "57ec8499a49385392fa36154",
+        "nickname": "潭老师",
+        "headimgurl": "this is a url",
+        "id": "57ec8499a49385392fa36154"
+      },
+      "likeNum": 0,
+      "collectNum": 0,
+      "forwardNum": 0,
+      "likedFlag": false,
+      "collectedFlag": false,
+      "followedFlag": false
+      "tags": ["111", "222"],
+    },
+    ......
+  ]
+}
+```
+------------------------------------------------------
 ------------------------------------------------------
 
 - [x] 获取comment列表
 ```
 PATH: /admin/comments?code=     //获取股票主题的讨论
-PATH: /comments?pid=      //获取pid的讨论
+PATH: /admin/comments?pid=      //获取pid的讨论
 METHOD: GET
 
 Return Value:
@@ -278,10 +327,25 @@ Return Value:
 ------------------------------------------------------
 ------------------------------------------------------
 
+- [x] 获取标签列表
+```
+PATH: /admin/tags
+METHOD: GET
+Header:
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: ["tag1", "tag2", "tag3"]
+}
+```
+------------------------------------------------------
+------------------------------------------------------
+
 - [x] 微信转发
   微信转发需要的参数
 ```
-PATH: /auth/wxConfig?url=
+PATH: /admin/wxConfig?url=
 METHOD: GET
 Header:
 {
@@ -290,12 +354,13 @@ Header:
 
 Return Value:
 {
-  message: char,//状态信息 "ok"表示成功
-  payload: {
-    "timestamp": 1477391655,
-    "nonceStr": "e502fc354e79a8ed7ec8ecef0c56780b",
-    "url": "1",
-    "sign": "c6ef3e47fafdd2eb70435b9575ec49db75b2d1cb"
+  "message": "ok",
+  "timestamp": 1477538773735,
+  "payload": {
+      "timestamp": 1477538773,
+      "nonceStr": "5b279c5da77bb2ede8f526522ba269e4",
+      "url": "1",
+      "sign": "638f8ed56b9d38245f2d644833547f8bdd484afe"
   }
 }
 ```
