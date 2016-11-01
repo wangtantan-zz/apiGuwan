@@ -7,6 +7,7 @@
 - [x] 获取message列表
 ```
 PATH: /messages?type=     //根据类型获取message列表
+
 | 请求type | 数据type | 共有字段 | 特有字段 |
 | ----- | ----- | ----- | ----- |
 | getComment | type: 10：评论、11：回复 | uid,actUser,type,publish,content  | 11有replyUser |
