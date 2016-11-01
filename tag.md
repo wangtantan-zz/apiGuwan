@@ -6,7 +6,7 @@
 
 - [x] 获取标签列表
 ```
-PATH: /admin/tags
+PATH: /tags
 METHOD: GET
 Header:
 
