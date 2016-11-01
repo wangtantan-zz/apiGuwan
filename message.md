@@ -6,13 +6,13 @@
 
 - [x] 获取message列表
 
-| 序号 | 请求type | 数据type | 共有字段 | 特有字段 |
+| 序号 | messageType | 返回数据type | 共有字段 | 特有字段 |
 | :----: | ------ | ----- | ----- | ----- |
-| 1 | getComment | type:10：评论、11：回复 | uid,actUser,type,publish,content | 11有replyUser |
-| 2 | pubComment | type:20：发出的评论 | uid,actUser,type,publish,content,replyUser |  |
-| 3 | getLike | type:30：赞发布、31：赞评论 | uid,actUser,type,publish | 31有comment |
+| 1 | getComment | 10：评论、11：回复 | uid,actUser,type,publish,content | 11有replyUser |
+| 2 | pubComment | 20：发出的评论 | uid,actUser,type,publish,content,replyUser |  |
+| 3 | getLike | 30：赞发布、31：赞评论 | uid,actUser,type,publish | 31有comment |
 ```
-PATH: /messages?type=     //根据类型获取message列表
+PATH: /messages?messageType=     //根据类型获取message列表
 
 METHOD: GET
 
