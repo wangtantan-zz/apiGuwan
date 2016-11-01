@@ -53,6 +53,51 @@ Return Value:
 }
 ```
 ------------------------------------------------------
+- [x] 通过tag获取publish详情
+```
+PATH: /admin/publishes/:tag/byTag
+METHOD: GET
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  pageInfo: {
+    page: 1,
+    perPage: 20,
+    totalNum: 15
+  },
+  payload: {
+    "_id": "580b81e452540a7b2f8010d8",
+    "updatedAt": "2016-10-22T15:12:36.013Z",
+    "createdAt": "2016-10-22T15:12:36.013Z",
+    "type": 21,
+    "content": "",
+    "uid": "57ec8499a49385392fa36154",
+    "__v": 0,
+    "commentNum": 0,
+    "mediaUrls": [
+        "This is a mediaUrl",
+        "This is another mediaUrl",
+        ...
+    ],
+    "summary": "",
+    "id": "580b81e452540a7b2f8010d8",
+    "user": {
+      "_id": "57ec8499a49385392fa36154",
+      "nickname": "潭老师",
+      "headimgurl": "this is a url",
+      "id": "57ec8499a49385392fa36154"
+    },
+    "likeNum": 0,
+    "collectNum": 0,
+    "forwardNum": 0,
+    "likedFlag": false,
+    "collectedFlag": false,
+    "followedFlag": false
+  },
+}
+```
+------------------------------------------------------
 - [x] 获取publish详情
 ```
 PATH: /admin/publishes/:_id
