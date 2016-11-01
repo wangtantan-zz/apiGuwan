@@ -12,6 +12,7 @@
 | 7 | [大行情](/quote.md) | /quotes |
 | 8 | [反馈](/feedback.md) | /feedbacks |
 | 9 | [自选股](/userStock.md) | /userStocks |
+| 10 | [消息](/message.md) | /messages |
 
 
 ##说明
