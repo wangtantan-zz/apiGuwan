@@ -13,6 +13,7 @@
 | 8 | [反馈](/feedback.md) | /feedbacks |
 | 9 | [自选股](/userStock.md) | /userStocks |
 | 10 | [消息](/message.md) | /messages |
+| 11 | [标签](/tag.md) | /tags |
 
 
 ##说明
