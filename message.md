@@ -6,7 +6,7 @@
 
 - [x] 获取message列表
 
-| 序号 | messageType | 返回数据type | 特有字段 |
+| 序号 | messageType | 返回字段 | 特有字段 |
 | :----: | ------ | ----- | ----- | ----- |
 | 1 | getComment | uid,actUser,messageType,publish,content | comment |
 | 2 | pubComment | uid,actUser,messageType,publish,content | comment |
