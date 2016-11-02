@@ -6,11 +6,11 @@
 
 - [x] 获取message列表
 
-| 序号 | messageType | 返回数据type | 共有字段 | 特有字段 |
+| 序号 | messageType | 返回数据type | 特有字段 |
 | :----: | ------ | ----- | ----- | ----- |
-| 1 | getComment | 10：评论、11：回复 | uid,actUser,type,publish,content | 11有replyUser |
-| 2 | pubComment | 20：发出的评论 | uid,actUser,type,publish,content,replyUser |  |
-| 3 | getLike | 30：赞发布、31：赞评论 | uid,actUser,type,publish | 31有comment |
+| 1 | getComment | uid,actUser,messageType,publish,content | comment |
+| 2 | pubComment | uid,actUser,messageType,publish,content | comment |
+| 3 | getLike | uid,actUser,messageType,publish |comment |
 ```
 PATH: /messages?messageType=     //根据类型获取message列表
 
@@ -31,14 +31,20 @@ Return Value:
       "updatedAt": "2016-11-01T06:37:42.430Z",
       "createdAt": "2016-11-01T06:37:42.430Z",
       "content": "我是一个好人",
-      "type": 10,
+      "messageType": "getComment", //getComment, pubComment, getLike
       "actUser": {
         "headimgurl": "This is an Url",
         "nickname": "Prophet.Wang_10003",
         "_id": "57ff2f33d734987679a300bb"
       },
       "comment": {
+        "user": {
+          "headimgurl": "This is an Url",
+          "nickname": "Prophet.Wang_10003",
+          "_id": "57ff2f33d734987679a300bb"
+        },
         "replyTo": "57ec96e0a49385392fa36161",
+        "content": "",
         "uid": "57ff2f33d734987679a300bb",
         "pid": "57ff2a27dbb1628d5fe1b8f7",
         "createdAt": "2016-11-01T07:08:31.504Z",
@@ -46,6 +52,11 @@ Return Value:
         "_id": "58183f6fafda64892601a54e" 
       },
       "publish": {
+        "user": {
+          "headimgurl": "This is an Url",
+          "nickname": "Prophet.Wang_10003",
+          "_id": "57ec96e0a49385392fa36161"
+        },
         "mediaUrls": [],
         "commentNum": 4,
         "tags": [],
@@ -53,6 +64,7 @@ Return Value:
         "uid": "57ec96e0a49385392fa36161",
         "type": 21,
         "title": "搜股",
+        "sumary": "summary content",
         "createdAt": "2016-10-13T06:31:03.332Z",
         "updatedAt": "2016-11-01T06:37:42.357Z",
         "_id": "57ff2a27dbb1628d5fe1b8f7"
