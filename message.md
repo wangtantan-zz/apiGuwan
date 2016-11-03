@@ -76,6 +76,26 @@ Return Value:
 }
 ```
 ------------------------------------------------------
+- [x] 获取新消息条数
+PATH: /messages/newNum
+METHOD: GET
+
+HEADER：
+{
+  Authorization:'Bearer ' + token
+}
+
+Return Value:
+{
+  message: char,//状态信息 "ok"表示成功
+  payload: {
+    "getComment":32,
+    "pubComment":32,
+    "getLike":0
+  }
+}
+```
+------------------------------------------------------
 - [x] 删除message(ios)
 ```
 PATH: /messages/:_id
