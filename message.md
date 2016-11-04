@@ -10,7 +10,8 @@
 | :----: | ------ | ----- | ----- | ----- |
 | 1 | getComment | uid,actUser,messageType,publish,content | comment |
 | 2 | pubComment | uid,actUser,messageType,publish,content | comment |
-| 3 | getLike | uid,actUser,messageType,publish |comment |
+| 3 | getLike | uid,actUser,messageType,publish | comment |
+| 4 | getSystem | title,content,messageType |  |
 ```
 PATH: /messages?messageType=     //根据类型获取message列表
 
@@ -92,6 +93,7 @@ Return Value:
     "getComment":32,
     "pubComment":32,
     "getLike":0
+    "getSystem":10
   }
 }
 ```
